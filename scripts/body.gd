@@ -9,11 +9,8 @@ var walking = true
 #	Float that ranges from 0 to PI
 var walkingMoment = 0.0
 
-var walkingMomentMax = PI
+var walkingMomentMax = 50
 var walkingMomentMin = 0
-
-# 1 if we should be incrementing walkingMoment, -1 if we should be decrementing walkingMoment
-var walkingIncrementSign = 1
 
 func _ready():
 	set_process(true)
@@ -21,14 +18,13 @@ func _ready():
 func _process(delta):
 	if walking:
 		if (walkingMoment > walkingMomentMax):
-			walkingIncrementSign = -1
-		elif (walkingMoment < walkingMomentMin):
-			walkingIncrementSign = 1
+			# A full rotation has occurred, so reset the walkingMoment
+			walkingMoment = walkingMomentMin
 		
 		# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
 		# a cumulative positive or negative sum as we oscillate between the upper and lower bounds.
 		# The only numbers a computer is able to represent with perfect precision are powers of 2.
-		var deltaIncrement = pow(2, -6)*walkingIncrementSign
+		var deltaIncrement = pow(2, -2)
 		walkingMoment = walkingMoment + deltaIncrement
 		var walkingPercentage = walkingMoment/walkingMomentMax
 		for i in range(0, get_child_count()):
