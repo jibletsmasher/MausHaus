@@ -7,14 +7,14 @@ extends Sprite
 # True if walking, false otherwise
 var walking = true
 
-# Potential ideas for how to handle this:
-#	1. Range from -PI/2 to PI/2 and allow each bodyPart's walk method to modify that value it is given for the appropriate rotation.
-#	2. I like idea 1.
 #	While debugging, I let the program run for a while and noticed the leg wasn't being completely rotated back, so there is
 #	a positive cumulative rotation happening as we oscillate between the lower and upper bound.
 #	Because of this we should use a number that, when subtracted or added, becomes equal to our bounds.
-#	Float that ranges from -PI to PI
+#	Float that ranges from 0 to PI
 var walkingMoment = 0.0
+
+var maxWalkingMoment = PI
+var minWalkingMoment = 0
 
 # 1 if we should be incrementing walkingMoment, -1 if we should be decrementing walkingMoment
 var walkingIncrementSign = 1
@@ -24,9 +24,9 @@ func _ready():
 	
 func _process(delta):
 	if walking:
-		if (walkingMoment > PI/2):
+		if (walkingMoment > maxWalkingMoment):
 			walkingIncrementSign = -1
-		elif (walkingMoment < -PI/2):
+		elif (walkingMoment < minWalkingMoment):
 			walkingIncrementSign = 1
 		
 		# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
@@ -34,7 +34,8 @@ func _process(delta):
 		# The only numbers a computer is able to represent with perfect precision are powers of 2.
 		var deltaIncrement = pow(2, -6)*walkingIncrementSign
 		walkingMoment = walkingMoment + deltaIncrement
+		var walkingPercentage = walkingMoment/maxWalkingMoment
 		for i in range(0, get_child_count()):
 			var bodyPart = get_child(i)
-			bodyPart.walk(walkingMoment)
+			bodyPart.walk(walkingPercentage)
 		

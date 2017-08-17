@@ -9,6 +9,6 @@ func _ready():
 	# Initialization here
 	pass
 	
-func walk(walkingMoment):
-	set_rot(walkingMoment/2)
-	#get_child(0).walk(walkingMoment)
+func walk(walkingPercentage):
+	set_rot(walkingPercentage/2)
+	#get_child(0).walk(walkingPercentage)

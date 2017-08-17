@@ -9,5 +9,5 @@ func _ready():
 	# Initialization here
 	pass
 
-func walk(walkingMoment):
+func walk(walkingPercentage):
 	pass

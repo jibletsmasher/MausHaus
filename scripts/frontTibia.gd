@@ -7,6 +7,6 @@ extends Sprite
 func _ready():
 	pass
 
-func walk(walkingMoment):
-	set_rot(walkingMoment/2)
-	#get_child(0).walk(walkingMoment)
+func walk(walkingPercentage):
+	set_rot(walkingPercentage/2)
+	#get_child(0).walk(walkingPercentage)
