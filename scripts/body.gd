@@ -1,9 +1,5 @@
 extends Sprite
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 # True if walking, false otherwise
 var walking = true
 
@@ -13,8 +9,8 @@ var walking = true
 #	Float that ranges from 0 to PI
 var walkingMoment = 0.0
 
-var maxWalkingMoment = PI
-var minWalkingMoment = 0
+var walkingMomentMax = PI
+var walkingMomentMin = 0
 
 # 1 if we should be incrementing walkingMoment, -1 if we should be decrementing walkingMoment
 var walkingIncrementSign = 1
@@ -24,9 +20,9 @@ func _ready():
 	
 func _process(delta):
 	if walking:
-		if (walkingMoment > maxWalkingMoment):
+		if (walkingMoment > walkingMomentMax):
 			walkingIncrementSign = -1
-		elif (walkingMoment < minWalkingMoment):
+		elif (walkingMoment < walkingMomentMin):
 			walkingIncrementSign = 1
 		
 		# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
@@ -34,7 +30,7 @@ func _process(delta):
 		# The only numbers a computer is able to represent with perfect precision are powers of 2.
 		var deltaIncrement = pow(2, -6)*walkingIncrementSign
 		walkingMoment = walkingMoment + deltaIncrement
-		var walkingPercentage = walkingMoment/maxWalkingMoment
+		var walkingPercentage = walkingMoment/walkingMomentMax
 		for i in range(0, get_child_count()):
 			var bodyPart = get_child(i)
 			bodyPart.walk(walkingPercentage)
