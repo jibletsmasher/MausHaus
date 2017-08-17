@@ -28,8 +28,11 @@ func _process(delta):
 			walkingIncrementSign = -1
 		elif (walkingMoment < -PI/2):
 			walkingIncrementSign = 1
-			
-		var deltaIncrement = delta*walkingIncrementSign
+		
+		# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
+		# a cumulative positive or negative sum as we oscillate between the upper and lower bounds.
+		# The only numbers a computer is able to represent with perfect precision are powers of 2.
+		var deltaIncrement = pow(2, -6)*walkingIncrementSign
 		walkingMoment = walkingMoment + deltaIncrement
 		for i in range(0, get_child_count()):
 			var bodyPart = get_child(i)
