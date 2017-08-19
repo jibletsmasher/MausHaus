@@ -14,11 +14,16 @@ var walkingRotationRange = 0.0
 # The percentage that the specific part is in the walking process.
 # This accounts for scenarios when the part should move more quickly
 # during certain portion of the walking cycle.
-var partPercentage = 0.0
+var partPercentage
+
+# The percentage of the walking phase we want to start this part at.
+# This is only used for the back body parts.
+var startingPercentage = 0.5
 
 func _ready():
 	# Called every time the node is added to the scene.
 	walkingRotationRange = walkingRotationMax - walkingRotationMin
+	partPercentage = startingPercentage
 
 func walk(walkingPercentage, numWalkingMoments):
 	var rotation = _get_rotation(walkingPercentage, numWalkingMoments)
@@ -31,20 +36,20 @@ func walk(walkingPercentage, numWalkingMoments):
 # Anytime we want to speed up the movement, we have to set aside an equal portion
 # of time that we'll slow down the movement and vice versa.
 func _get_rotation(walkingPercentage, numWalkingMoments):
-	if walkingPercentage == 0.0:
-		partPercentage = 0.0
-	elif (walkingPercentage > 0.15 and walkingPercentage < 0.4) or (walkingPercentage > 0.65 and walkingPercentage < 0.9):
+#	if walkingPercentage == 0.0:
+#		partPercentage = 0.0
+	if (walkingPercentage > 0.15 and walkingPercentage < 0.4) or (walkingPercentage > 0.65 and walkingPercentage < 0.9):
 		partPercentage = partPercentage + 1.5/numWalkingMoments
 	else:
 		partPercentage = partPercentage + 0.5/numWalkingMoments
 	
 	var rotation
-	if partPercentage > 0.5:
-		rotation = walkingRotationMin + walkingRotationRange*(1 - partPercentage)
-	elif partPercentage <= 1:
-		rotation = walkingRotationMin + walkingRotationRange*partPercentage
-	else:
+	if partPercentage > 1:
 		partPercentage = 0.0
+		rotation = walkingRotationMin
+	elif partPercentage > 0.5:
+		rotation = walkingRotationMin + walkingRotationRange*(1 - partPercentage)
+	else:
 		rotation = walkingRotationMin + walkingRotationRange*partPercentage
 	
 	return rotation
