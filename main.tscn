@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://body.png" type="Texture" id=2]
 [ext_resource path="res://scripts/body.gd" type="Script" id=3]
 [ext_resource path="res://leg.png" type="Texture" id=4]
-[ext_resource path="res://scripts/frontFemur.gd" type="Script" id=5]
-[ext_resource path="res://scripts/frontTibia.gd" type="Script" id=6]
-[ext_resource path="res://scripts/frontHumerus.gd" type="Script" id=7]
-[ext_resource path="res://scripts/frontRadius.gd" type="Script" id=8]
-[ext_resource path="res://head.png" type="Texture" id=9]
-[ext_resource path="res://scripts/head.gd" type="Script" id=10]
+[ext_resource path="res://scripts/backFemur.gd" type="Script" id=5]
+[ext_resource path="res://scripts/backTibia.gd" type="Script" id=6]
+[ext_resource path="res://scripts/frontTibia.gd" type="Script" id=7]
+[ext_resource path="res://scripts/backHumerus.gd" type="Script" id=8]
+[ext_resource path="res://scripts/backRadius.gd" type="Script" id=9]
+[ext_resource path="res://head.png" type="Texture" id=10]
+[ext_resource path="res://scripts/head.gd" type="Script" id=11]
 
 [node name="main" type="Node2D"]
 
@@ -21,8 +22,35 @@ transform/pos = Vector2( 499.856, 411.245 )
 texture = ExtResource( 2 )
 script/script = ExtResource( 3 )
 
+[node name="backFemur" type="Sprite" parent="body"]
+
+transform/pos = Vector2( -38.8418, 26.3361 )
+transform/rot = 56.1635
+transform/scale = Vector2( 0.559133, 0.38866 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+script/script = ExtResource( 5 )
+
+[node name="backTibia" type="Sprite" parent="body/backFemur"]
+
+transform/pos = Vector2( -3.68244, 57.4487 )
+transform/rot = -99.6247
+transform/scale = Vector2( 1.48954, 1 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+script/script = ExtResource( 6 )
+
+[node name="backHindFoot" type="Sprite" parent="body/backFemur/backTibia"]
+
+transform/pos = Vector2( -0.337402, 62.618 )
+transform/rot = 128.106
+transform/scale = Vector2( 0.66543, 0.567823 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+
 [node name="frontFemur" type="Sprite" parent="body"]
 
+editor/display_folded = true
 transform/pos = Vector2( -38.8418, 26.3361 )
 transform/rot = 56.1635
 transform/scale = Vector2( 0.559133, 0.38866 )
@@ -37,7 +65,7 @@ transform/rot = -99.6247
 transform/scale = Vector2( 1.48954, 1 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, 31 )
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 
 [node name="frontHindFoot" type="Sprite" parent="body/frontFemur/frontTibia"]
 
@@ -47,14 +75,41 @@ transform/scale = Vector2( 0.66543, 0.567823 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, 31 )
 
-[node name="frontHumerus" type="Sprite" parent="body"]
+[node name="backHumerus" type="Sprite" parent="body"]
 
 transform/pos = Vector2( 39.8921, 26.6447 )
 transform/rot = -47.9033
 transform/scale = Vector2( 0.563514, 0.377353 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, 31 )
-script/script = ExtResource( 7 )
+script/script = ExtResource( 8 )
+
+[node name="backRadius" type="Sprite" parent="body/backHumerus"]
+
+transform/pos = Vector2( -0.927361, 60.4394 )
+transform/rot = 75.5735
+transform/scale = Vector2( 1.46126, 0.864611 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+script/script = ExtResource( 9 )
+
+[node name="backForeFoot" type="Sprite" parent="body/backHumerus/backRadius"]
+
+transform/pos = Vector2( 0.138062, 61.871 )
+transform/rot = 51.5571
+transform/scale = Vector2( 0.66543, 0.37757 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+
+[node name="frontHumerus" type="Sprite" parent="body"]
+
+editor/display_folded = true
+transform/pos = Vector2( 39.8921, 26.6447 )
+transform/rot = -47.9033
+transform/scale = Vector2( 0.563514, 0.377353 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, 31 )
+script/script = ExtResource( 8 )
 
 [node name="frontRadius" type="Sprite" parent="body/frontHumerus"]
 
@@ -63,7 +118,7 @@ transform/rot = 75.5735
 transform/scale = Vector2( 1.46126, 0.864611 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, 31 )
-script/script = ExtResource( 8 )
+script/script = ExtResource( 9 )
 
 [node name="frontForeFoot" type="Sprite" parent="body/frontHumerus/frontRadius"]
 
@@ -76,8 +131,8 @@ offset = Vector2( 0, 31 )
 [node name="head" type="Sprite" parent="body"]
 
 transform/pos = Vector2( 70.5944, -10.8347 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 17, -14 )
-script/script = ExtResource( 10 )
+script/script = ExtResource( 11 )
 
 
