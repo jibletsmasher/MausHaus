@@ -26,13 +26,12 @@ func _ready():
 	
 func _process(delta):
 	if walking:
-		if (walkingMoment > walkingMomentMax):
-			# A full rotation has occurred, so reset the walkingMoment
-			walkingMoment = walkingMomentMin
-		
-		walkingMoment = walkingMoment + walkingMomentIncrement
 		var walkingPercentage = walkingMoment/walkingMomentMax
 		for i in range(0, get_child_count()):
 			var bodyPart = get_child(i)
 			bodyPart.walk(walkingPercentage, numWalkingMoments)
 		
+		walkingMoment = walkingMoment + walkingMomentIncrement
+		if (walkingMoment > walkingMomentMax):
+			# A full rotation has occurred, so reset the walkingMoment
+			walkingMoment = walkingMomentMin

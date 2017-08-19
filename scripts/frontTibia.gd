@@ -11,6 +11,11 @@ var walkingRotationMax = -0.5
 # The range of rotation
 var walkingRotationRange = 0.0
 
+# The percentage that the specific part is in the walking process.
+# This accounts for scenarios when the part should move more quickly
+# during certain portion of the walking cycle.
+var partPercentage = 0.0
+
 func _ready():
 	# Called every time the node is added to the scene.
 	walkingRotationRange = walkingRotationMax - walkingRotationMin
@@ -20,9 +25,17 @@ func walk(walkingPercentage, numWalkingMoments):
 	set_rot(rotation)
 
 func _get_rotation(walkingPercentage, numWalkingMoments):
-	var partPercentage
-	if walkingPercentage < 0.51:
-		partPercentage = walkingPercentage
+	if walkingPercentage == 0.0:
+		partPercentage = 0.0
+	elif (walkingPercentage < 0.15) or (walkingPercentage > 0.4 and walkingPercentage < 0.65) or (walkingPercentage > 0.9):
+		partPercentage = partPercentage + 1.5/numWalkingMoments
 	else:
-		partPercentage = 1 - walkingPercentage
-	return walkingRotationMin + walkingRotationRange*partPercentage
+		partPercentage = partPercentage + 0.5/numWalkingMoments
+	
+	var rotation
+	if partPercentage > 0.5:
+		rotation = walkingRotationMin + walkingRotationRange*(1 - partPercentage)
+	else:
+		rotation = walkingRotationMin + walkingRotationRange*partPercentage
+	
+	return rotation
