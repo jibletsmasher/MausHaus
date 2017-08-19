@@ -14,8 +14,8 @@ var walkingMoment = 0.0
 		# The only numbers a computer is able to represent with perfect precision are powers of 2.
 var walkingMomentIncrement = pow(2, -2)
 
-var walkingMomentMax = 50
-var walkingMomentMin = 0
+var walkingMomentMax = 50.0
+var walkingMomentMin = 0.0
 
 # The number of walking moments (i.e. the number of walking iterations in a full walking movement)
 var numWalkingMoments
