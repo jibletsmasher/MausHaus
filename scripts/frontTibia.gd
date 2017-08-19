@@ -1,5 +1,7 @@
 extends Sprite
 
+# Tibia is the lower part of the back leg
+
 # The minimum number of radians the mouse's leg can rotate during a walking phase
 var walkingRotationMin = -PI/1.5
 
@@ -14,5 +16,13 @@ func _ready():
 	walkingRotationRange = walkingRotationMax - walkingRotationMin
 
 func walk(walkingPercentage):
-	var rotation = walkingRotationMin + walkingRotationRange*walkingPercentage
+	var rotation = _get_rotation(walkingPercentage)
 	set_rot(rotation)
+
+func _get_rotation(walkingPercentage):
+	var partPercentage
+	if walkingPercentage < 0.51:
+		partPercentage = walkingPercentage
+	else:
+		partPercentage = 1 - walkingPercentage
+	return walkingRotationMin + walkingRotationRange*partPercentage

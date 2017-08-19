@@ -1,5 +1,7 @@
 extends Sprite
 
+# Radius is the lower part of the front leg
+
 # The minimum number of radians the mouse's leg can rotate during a walking phase
 var walkingRotationMin = PI/6
 
@@ -14,7 +16,14 @@ func _ready():
 	walkingRotationRange = walkingRotationMax - walkingRotationMin
 
 func walk(walkingPercentage):
-	# For the radius, we want most of the rotation to happen when walkingPercentage is 0 - .25 and .75 - 1.
-	var inverseWalkingPercentage = 1 - walkingPercentage
-	var rotation = walkingRotationMin + walkingRotationRange*inverseWalkingPercentage
+	var rotation = _get_rotation(walkingPercentage)
 	set_rot(rotation)
+
+func _get_rotation(walkingPercentage):
+	var partPercentage
+	if walkingPercentage < 0.51:
+		partPercentage = walkingPercentage
+	else:
+		partPercentage = 1 - walkingPercentage
+	var inverseWalkingPercentage = 1 - partPercentage
+	return walkingRotationMin + walkingRotationRange*inverseWalkingPercentage
