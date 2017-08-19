@@ -9,9 +9,9 @@ var walking = true
 #	Float that encapsulates a whole walking motion range
 var walkingMoment = 0.0
 
-		# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
-		# a cumulative positive or negative sum as we oscillate between the upper and lower bounds.
-		# The only numbers a computer is able to represent with perfect precision are powers of 2.
+# We want to use a power of 2 because this should ensure we don't have computer rounding errors that would cause
+# a cumulative positive or negative sum as we oscillate between the upper and lower bounds.
+# The only numbers a computer is able to represent with perfect precision are powers of 2.
 var walkingMomentIncrement = pow(2, -2)
 
 var walkingMomentMax = 50.0
