@@ -38,7 +38,7 @@ func _get_rotation(walkingPercentage, numWalkingMoments):
 		partPercentage = partPercentage + 0.5/numWalkingMoments
 	
 	var rotation
-	if partPercentage > 1:
+	if partPercentage > 1.0:
 		partPercentage = 0.0
 		rotation = walkingRotationMin
 	elif partPercentage > 0.5:
