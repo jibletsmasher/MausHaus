@@ -13,7 +13,7 @@ var walkingRotationRange = 0.0
 
 # The percentage that the specific part is in the walking process.
 # This accounts for scenarios when the part should move more quickly
-# during certain portion of the walking cycle.
+# during certain portions of the walking cycle.
 var partPercentage
 
 # The percentage of the walking phase we want to start this part at.
@@ -35,6 +35,9 @@ func walk(walkingPercentage, numWalkingMoments):
 # while the else blocks contain the slower movement portions of the walk.
 # Anytime we want to speed up the movement, we have to set aside an equal portion
 # of time that we'll slow down the movement and vice versa.
+# walkingPercentage - A range from 0.0 - 1.0 of the percentage of the way through
+#						the walking motion the mouse is currently at.
+# numWalkingMoments - The total number of walking moments a walking stage contains.
 func _get_rotation(walkingPercentage, numWalkingMoments):
 #	if walkingPercentage == 0.0:
 #		partPercentage = 0.0
