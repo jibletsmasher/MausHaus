@@ -30,9 +30,9 @@ func walk(walkingPercentage, numWalkingMoments):
 	set_rot(rotation)
 
 func _get_rotation(walkingPercentage, numWalkingMoments):
-#	if walkingPercentage == 0.0:
-#		partPercentage = 0.0
-	if walkingPercentage < 0.25 or (walkingPercentage > 0.5 and walkingPercentage < 0.75):
+	if walkingPercentage == 0.0:
+		partPercentage = startingPercentage
+	elif walkingPercentage < 0.25 or (walkingPercentage > 0.5 and walkingPercentage < 0.75):
 		partPercentage = partPercentage + 1.5/numWalkingMoments
 	else:
 		partPercentage = partPercentage + 0.5/numWalkingMoments

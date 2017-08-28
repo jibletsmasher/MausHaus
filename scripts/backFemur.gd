@@ -39,9 +39,9 @@ func walk(walkingPercentage, numWalkingMoments):
 #						the walking motion the mouse is currently at.
 # numWalkingMoments - The total number of walking moments a walking stage contains.
 func _get_rotation(walkingPercentage, numWalkingMoments):
-#	if walkingPercentage == 0.0:
-#		partPercentage = 0.0
-	if (walkingPercentage > 0.15 and walkingPercentage < 0.4) or (walkingPercentage > 0.65 and walkingPercentage < 0.9):
+	if walkingPercentage == 0.0:
+		partPercentage = startingPercentage
+	elif (walkingPercentage > 0.15 and walkingPercentage < 0.4) or (walkingPercentage > 0.65 and walkingPercentage < 0.9):
 		partPercentage = partPercentage + 1.5/numWalkingMoments
 	else:
 		partPercentage = partPercentage + 0.5/numWalkingMoments
